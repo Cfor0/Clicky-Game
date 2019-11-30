@@ -7,22 +7,59 @@ import images from "./images.json"
 
 class App extends Component {
   state = {
+    count: 0,
+    highscore: 0,
     images
   }
-  switchPictures = id => {
-    const images = this.state.images.filter(image => image.id !== id);
-    this.setState({ images })
+  // create function to randomly swtich pictures into new positions
+  click = id => {
+    this.state.images.map(friend => {
+      if(friend.id === id) {
+        if (friend.count < 1) {
+          friend.count ++;
+          this.setState({count: this.state.count + 1});
+        } else {
+          if (this.state.count > this.state.highscore) {
+            this.setState({ highscore: this.state.count })
+          }
+          (this.setState({count:0}))
+          this.state.images.map(friend => friend.count = 0)
+        }
+      }
+    })
+  this.shuffle(this.state.images)
+  }
+
+  shuffle = (images) => {
+    var currentIndex = images.length, temporaryValue, randomIndex;
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      // And swap it with the current element.
+      temporaryValue = images[currentIndex];
+      images[currentIndex] = images[randomIndex];
+      images[randomIndex] = temporaryValue;
+    }
+    this.setState(images);
   }
   render() {
     return (
       <Wrapper>
-        <Title>Clicky Game</Title>
+        <Title 
+        count={this.state.count}
+        highscore={this.state.highscore}
+        >
+        Clicky Game  
+        </Title>
         {this.state.images.map(image => (
           <ClickCard
             id={image.id}
             key={image.id}
             name={image.name}
             image={image.image}
+            click= {this.click}
           />
         ))}
 
