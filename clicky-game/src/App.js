@@ -14,20 +14,20 @@ class App extends Component {
   // create function to randomly swtich pictures into new positions
   click = id => {
     this.state.images.map(friend => {
-      if(friend.id === id) {
+      if (friend.id === id) {
         if (friend.count < 1) {
-          friend.count ++;
-          this.setState({count: this.state.count + 1});
+          friend.count++;
+          this.setState({ count: this.state.count + 1 });
         } else {
           if (this.state.count > this.state.highscore) {
             this.setState({ highscore: this.state.count })
           }
-          (this.setState({count:0}))
+          (this.setState({ count: 0 }))
           this.state.images.map(friend => friend.count = 0)
         }
       }
     })
-  this.shuffle(this.state.images)
+    this.shuffle(this.state.images)
   }
 
   shuffle = (images) => {
@@ -47,22 +47,25 @@ class App extends Component {
   render() {
     return (
       <Wrapper>
-        <Title 
-        count={this.state.count}
-        highscore={this.state.highscore}
+        <Title
+          count={this.state.count}
+          highscore={this.state.highscore}
         >
-        Clicky Game  
+          Clicky Game
         </Title>
-        {this.state.images.map(image => (
-          <ClickCard
-            id={image.id}
-            key={image.id}
-            name={image.name}
-            image={image.image}
-            click= {this.click}
-          />
-        ))}
+        <div className="card-columns">
+          {this.state.images.map(image => (
 
+            <ClickCard
+              id={image.id}
+              key={image.id}
+              name={image.name}
+              image={image.image}
+              click={this.click}
+            />
+
+          ))}
+        </div>
       </Wrapper>
 
     )
