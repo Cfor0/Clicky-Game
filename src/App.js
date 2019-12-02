@@ -59,7 +59,6 @@ class App extends Component {
             <ClickCard
               id={image.id}
               key={image.id}
-              name={image.name}
               image={image.image}
               click={this.click}
             />
