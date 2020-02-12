@@ -5,6 +5,8 @@
 
 * The app only renders three `components` and uses 2 arrow functions (count, shuffle).
 
+![gif](ClickyGame.gif)
+
 ## Deployment
 
 Deployed to Heroku
